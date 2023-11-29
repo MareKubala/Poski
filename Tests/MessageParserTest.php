@@ -11,9 +11,9 @@ include_once __DIR__ . '/../vendor/autoload.php';
 
 class MessageParserTest extends TestCase {
 	/** 
-	 * @dataProvider validCommitMessageDataProvider
+	 * @dataProvider messageAndExpectedValuesData
 	 */
-	public function testValidCommitMessage($message, $expectedTags, $expectedTaskId, $expectedTitle, $expectedDetails, $expectedBcBreaks, $expectedTodos): void {
+	public function testIfMessageValid($message, $expectedTags, $expectedTaskId, $expectedTitle, $expectedDetails, $expectedBcBreaks, $expectedTodos): void {
 		$parser = new MessageParser();
 		$commitMessage = $parser->parse($message);
 		$this->assertEqualsCanonicalizing($expectedTags, $commitMessage->getTags());
@@ -25,7 +25,7 @@ class MessageParserTest extends TestCase {
 	}
 
 
-	public static function validCommitMessageDataProvider(): array
+	public static function messageAndExpectedValuesData(): array
 	{
 		return [
 			[
@@ -50,11 +50,13 @@ class MessageParserTest extends TestCase {
 				"[add] [feature] [git] Integrovat Premier: export objednávek
 				
 				BC: Refaktorovaný BaseImporter.
-				BC: More bcBreaks.
-				
+
+				TODO: Refactoring autoemail modulu.
+
 				Feature: Nový logger.
 				
-				TODO: Refactoring autoemail modulu.
+				BC: More bcBreaks.
+				
 				TODO: Refactoring autoemail modulu.",
 				['add', 'feature', 'git'],
 				null,
@@ -65,6 +67,4 @@ class MessageParserTest extends TestCase {
 			]
 		];
 	}
-
-
 }
