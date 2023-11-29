@@ -15,7 +15,7 @@ class MessageParser implements CommitMessageParser {
     private $todos = [];
 
     public const REGEX_TITLE_WHITESPACE = "/\s([A-Za-z].+)$/m";
-	public const REGEX_TITLE = "/^([A-Za-z].+)$/m";
+    public const REGEX_TITLE = "/^([A-Za-z].+)$/m";
     public const REGEX_TASK_ID = "/#(\d+)/";
     public const REGEX_TAGS = "/\[([^]]+)\]/";
 
